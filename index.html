@@ -568,6 +568,102 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:500;o
   gap:12px;
   margin-bottom:40px;
   flex-wrap:wrap;
+  opacity:0;
+  transform:translateY(22px) scale(.98);
+  pointer-events:none;
+  transition:opacity .6s ease, transform .6s cubic-bezier(.34,1.56,.64,1);
+}
+.footer-action-row.revealed{
+  opacity:1;
+  transform:translateY(0) scale(1);
+  pointer-events:auto;
+}
+
+/* reward reveal */
+#reward-overlay{
+  position:fixed;inset:0;z-index:9700;
+  display:none;align-items:center;justify-content:center;flex-direction:column;
+  background:
+    radial-gradient(ellipse at center, rgba(42,31,24,.92) 0%, rgba(13,8,5,.98) 100%);
+  overflow:hidden;
+}
+#reward-overlay.open{display:flex;animation:fadeIn .35s ease;}
+.reward-stars{
+  position:absolute;inset:0;pointer-events:none;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(232,194,122,.25) 1px, transparent 2px),
+    radial-gradient(circle at 70% 20%, rgba(232,194,122,.22) 1px, transparent 2px),
+    radial-gradient(circle at 80% 70%, rgba(232,194,122,.18) 1px, transparent 2px),
+    radial-gradient(circle at 35% 75%, rgba(232,194,122,.2) 1px, transparent 2px);
+  background-size:280px 280px;
+  animation:twinkle 6s linear infinite;
+}
+@keyframes twinkle{from{transform:translateY(0)}to{transform:translateY(18px)}}
+.reward-title{
+  position:relative;z-index:2;
+  font-family:'Playfair Display',serif;
+  font-size:clamp(28px,5vw,52px);
+  color:var(--cream);
+  text-align:center;
+  margin-bottom:10px;
+}
+.reward-sub{
+  position:relative;z-index:2;
+  font-family:'DM Sans',sans-serif;
+  font-size:13px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:rgba(232,194,122,.85);
+  text-align:center;
+  margin-bottom:24px;
+}
+.reward-book{
+  position:relative;z-index:3;
+  width:min(280px,62vw);aspect-ratio:3/4;
+  border-radius:12px;
+  background:linear-gradient(145deg,#e7d3b4,#d4b991);
+  border:2px solid rgba(201,149,74,.6);
+  box-shadow:0 24px 80px rgba(0,0,0,.45), inset 0 0 20px rgba(255,255,255,.3);
+  cursor:pointer;
+  transform:translateY(8px) rotate(-5deg);
+  transition:transform .35s ease, box-shadow .35s ease;
+  animation:rewardFloat 2.4s ease-in-out infinite;
+}
+.reward-book::before{
+  content:'';
+  position:absolute;left:0;top:0;bottom:0;width:18px;
+  background:linear-gradient(180deg,#b98f61,#8e6945);
+  border-right:1px solid rgba(42,31,24,.25);
+}
+.reward-book::after{
+  content:'📖';
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:54px;
+  filter:drop-shadow(0 4px 8px rgba(0,0,0,.2));
+}
+.reward-book:hover{
+  transform:translateY(0) rotate(-3deg) scale(1.03);
+  box-shadow:0 28px 90px rgba(0,0,0,.5), inset 0 0 22px rgba(255,255,255,.35);
+}
+@keyframes rewardFloat{
+  0%,100%{transform:translateY(8px) rotate(-5deg);}
+  50%{transform:translateY(-2px) rotate(-4deg);}
+}
+.reward-book.fly{
+  animation:rewardFly .95s cubic-bezier(.2,.8,.2,1) forwards;
+}
+@keyframes rewardFly{
+  0%{transform:translate(0,0) scale(1) rotate(-5deg);opacity:1;}
+  100%{transform:translate(var(--fly-x),var(--fly-y)) scale(.18) rotate(12deg);opacity:0;}
+}
+.reward-hint{
+  position:relative;z-index:2;
+  margin-top:18px;
+  font-family:'DM Sans',sans-serif;
+  font-size:12px;
+  color:rgba(250,246,240,.7);
+  letter-spacing:.1em;
 }
 .bday-trigger{
   z-index:3;
@@ -843,7 +939,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:500;o
   .book-kicker{padding-right:120px;}
 }
 .music-player{
-  position:fixed;bottom:24px;right:92px;z-index:700;
+  position:fixed;bottom:24px;right:92px;z-index:9800;
   display:flex;align-items:center;gap:12px;
   background:rgba(42,31,24,.88);
   backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
@@ -1040,7 +1136,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:500;o
 
 <!-- FOOTER -->
 <footer class="footer">
-  <div class="footer-action-row">
+  <div class="footer-action-row" id="footer-action-row">
     <button class="bday-trigger" id="bday-trigger" onclick="openBirthday()">
       <span class="pulse-dot"></span>
       🎂 Ada yang spesial — 8 Juni
@@ -1275,6 +1371,14 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:500;o
   </div>
 </div>
 
+<div id="reward-overlay">
+  <div class="reward-stars"></div>
+  <h2 class="reward-title">Harta Karun Keluarga Ditemukan</h2>
+  <p class="reward-sub">Hadiah untuk pembaca yang menuntaskan perjalanan</p>
+  <div class="reward-book" id="reward-book" onclick="claimRewardBook()"></div>
+  <p class="reward-hint">Klik bukunya untuk membuka hadiah ✨</p>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
@@ -1401,6 +1505,21 @@ window.addEventListener("DOMContentLoaded",()=>{
   setupDrop();
   setupReveal();
   setupMusicScroll();
+  setupRewardReveal();
+
+  // hard bind untuk memastikan tombol music responsif
+  const btnPlay = document.getElementById("mp-btn");
+  const btnMini = document.getElementById("mp-minimize");
+  const disc = document.getElementById("mp-disc");
+  if(btnPlay){
+    btnPlay.addEventListener("click",(e)=>{ e.stopPropagation(); toggleMusic(); });
+  }
+  if(btnMini){
+    btnMini.addEventListener("click",(e)=>miniMusic(e));
+  }
+  if(disc){
+    disc.addEventListener("click",(e)=>expandMusic(e));
+  }
 });
 
 async function loadAll(){
@@ -1836,14 +1955,16 @@ document.addEventListener("keydown",e=>{
 // ═══════════════════════════════════════════════════
 let musicMini = false;
 
-function miniMusic(){
+function miniMusic(e){
+  if (e) e.stopPropagation();
   musicMini = true;
   const mp = document.getElementById("music-player");
   mp.classList.add("mini");
   mp.onclick = expandMusic;
 }
 
-function expandMusic(){
+function expandMusic(e){
+  if (e) e.stopPropagation();
   if (!musicMini) return;
   musicMini = false;
   const mp = document.getElementById("music-player");
@@ -2045,6 +2166,63 @@ function checkBirthdayDate(){
     // Auto-buka setelah 3 detik kalau hari ini
     setTimeout(openBirthday, 3000);
   }
+}
+
+function setupRewardReveal(){
+  const actionRow = document.getElementById("footer-action-row");
+  if(!actionRow) return;
+
+  const REWARD_KEY = "kk_reward_book_claimed_v1";
+  const showReward = () => {
+    document.getElementById("reward-overlay").classList.add("open");
+    document.body.style.overflow = "hidden";
+  };
+
+  // kalau sudah pernah claim, langsung tampilkan tombol footer
+  if(localStorage.getItem(REWARD_KEY) === "1"){
+    actionRow.classList.add("revealed");
+    return;
+  }
+
+  const onScroll = () => {
+    const scrollBottom = window.scrollY + window.innerHeight;
+    const need = document.documentElement.scrollHeight - 24;
+    if (scrollBottom >= need) {
+      window.removeEventListener("scroll", onScroll);
+      showReward();
+    }
+  };
+
+  window.addEventListener("scroll", onScroll, { passive:true });
+  setTimeout(onScroll, 350);
+}
+
+function claimRewardBook(){
+  const book = document.getElementById("reward-book");
+  const target = document.getElementById("poetry-trigger");
+  const actionRow = document.getElementById("footer-action-row");
+  if(!book || !target || !actionRow) return;
+
+  // tampilkan row dulu agar ada target posisi animasi
+  actionRow.classList.add("revealed");
+
+  const b = book.getBoundingClientRect();
+  const t = target.getBoundingClientRect();
+
+  const dx = (t.left + t.width/2) - (b.left + b.width/2);
+  const dy = (t.top + t.height/2) - (b.top + b.height/2);
+
+  book.style.setProperty("--fly-x", dx + "px");
+  book.style.setProperty("--fly-y", dy + "px");
+  book.classList.add("fly");
+
+  setTimeout(()=>{
+    localStorage.setItem("kk_reward_book_claimed_v1","1");
+    const overlay = document.getElementById("reward-overlay");
+    overlay.classList.remove("open");
+    document.body.style.overflow = "";
+    toast("Hadiah terbuka: Buku Puisi Ayah 📖");
+  }, 900);
 }
 
 // ── UTILS ─────────────────────────────────────────
