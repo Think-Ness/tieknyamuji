@@ -560,15 +560,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:500;o
 }
 .bday-close:hover{color:var(--cream);border-color:rgba(250,246,240,.4);}
 
-/* Birthday + Poetry trigger buttons */
-.footer-action-row{
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  gap:12px;
-  margin-bottom:40px;
-  flex-wrap:wrap;
-}
+/* Birthday trigger button */
 .bday-trigger{
   z-index:3;
   background:rgba(201,149,74,.15);
@@ -584,263 +576,9 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:500;o
   width:8px;height:8px;border-radius:50%;background:var(--gold);
   animation:pulseDot 1.5s ease infinite;
 }
-.poetry-trigger{
-  z-index:3;
-  background:rgba(250,246,240,.06);
-  border:1px solid rgba(201,149,74,.32);
-  color:var(--cream);
-  font-family:'DM Sans',sans-serif;
-  font-size:13px;
-  letter-spacing:.08em;
-  padding:10px 22px;
-  border-radius:40px;
-  cursor:pointer;
-  transition:all .3s;
-  display:inline-flex;align-items:center;gap:8px;
-}
-.poetry-trigger:hover{
-  border-color:var(--gold);
-  background:rgba(201,149,74,.14);
-  transform:translateY(-1px);
-}
 @keyframes pulseDot{
   0%,100%{transform:scale(1);opacity:1;}
   50%{transform:scale(1.5);opacity:.5;}
-}
-
-/* ═══ POETRY BOOK OVERLAY ═══ */
-#poetry-book-overlay{
-  position:fixed;inset:0;z-index:9600;
-  display:none;align-items:center;justify-content:center;
-  background:radial-gradient(ellipse at center,#1f130d 0%,#0d0704 100%);
-  padding:20px;
-}
-#poetry-book-overlay.open{display:flex;animation:fadeIn .25s ease;}
-.poetry-book-wrap{width:min(920px,95vw);position:relative;}
-.poetry-book{
-  position:relative;
-  width:100%;
-  min-height:min(82vh,700px);
-  height:min(82vh,700px);
-  border-radius:18px;
-  perspective:1600px;
-  background:linear-gradient(135deg,#d9c5a6,#f5ead7);
-  box-shadow:0 25px 80px rgba(0,0,0,.45);
-  overflow:hidden;
-  border:1px solid rgba(201,149,74,.35);
-}
-.book-page{
-  position:absolute;
-  inset:0;
-  display:grid;
-  grid-template-columns:1fr 1fr;
-}
-.book-left,.book-right{
-  padding:38px 34px;
-  background:linear-gradient(180deg,#f8efdf,#efe1ca);
-  height:100%;
-  min-height:0;
-}
-.book-left{
-  border-right:1px solid rgba(107,76,59,.18);
-  position:relative;
-  padding-top:88px;
-  display:flex;
-  flex-direction:column;
-  min-height:0;
-}
-.book-left::after{
-  content:'';
-  position:absolute;top:0;right:-1px;bottom:0;width:14px;
-  background:linear-gradient(90deg,rgba(42,31,24,.05),rgba(42,31,24,0));
-}
-.book-kicker{
-  font-family:'DM Sans',sans-serif;
-  font-size:11px;
-  letter-spacing:.18em;
-  text-transform:uppercase;
-  color:#8e6f4d;
-  margin-bottom:14px;
-}
-.book-title{
-  font-family:'Playfair Display',serif;
-  font-size:clamp(24px,3vw,34px);
-  color:#2a1f18;
-  margin-bottom:12px;
-}
-.book-meta{
-  font-family:'DM Sans',sans-serif;
-  font-size:12px;color:#8b7667;letter-spacing:.08em;
-}
-.book-poem{
-  white-space:pre-line;
-  font-family:'Lora',serif;
-  font-size:clamp(15px,2.1vw,18px);
-  line-height:1.9;
-  color:#3e2c20;
-  flex:1;
-  min-height:0;
-  overflow:auto;
-  padding-right:8px;
-  margin-bottom:0;
-  overscroll-behavior:contain;
-}
-
-.book-photo-wrap{
-  position:absolute;
-  top:12px;
-  right:18px;
-  width:130px;
-  border-radius:6px;
-  overflow:hidden;
-  border:6px solid #f7efdf;
-  background:#e9dcc5;
-  box-shadow:0 10px 25px rgba(42,31,24,.22);
-  transform:rotate(6deg);
-  z-index:3;
-}
-.book-photo{
-  width:100%;
-  height:140px;
-  object-fit:cover;
-  display:block;
-  filter:sepia(8%) contrast(.98);
-}
-.book-photo.empty{
-  height:110px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:#8f7c6b;
-  font-family:'DM Sans',sans-serif;
-  font-size:11px;
-  letter-spacing:.08em;
-  text-transform:uppercase;
-  text-align:center;
-  padding:10px;
-}
-.book-photo-chooser{
-  margin-top:12px;
-  display:flex;
-  align-items:center;
-  gap:8px;
-  flex-wrap:wrap;
-}
-.book-photo-chooser label{
-  font-family:'DM Sans',sans-serif;
-  font-size:11px;
-  letter-spacing:.08em;
-  text-transform:uppercase;
-  color:#7c6350;
-}
-.book-photo-select{
-  border:1px solid rgba(201,149,74,.4);
-  background:#f7eedf;
-  color:#5e4334;
-  border-radius:10px;
-  padding:8px 10px;
-  font-family:'DM Sans',sans-serif;
-  font-size:12px;
-  min-width:190px;
-}
-.book-poem::-webkit-scrollbar{width:4px;}
-.book-poem::-webkit-scrollbar-thumb{background:rgba(107,76,59,.3);border-radius:2px;}
-.book-right{
-  display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;
-  background:
-    radial-gradient(circle at 30% 30%,rgba(201,149,74,.18),transparent 55%),
-    linear-gradient(180deg,#f4e6cf,#ebdac0);
-}
-.book-quote-mark{
-  font-family:'Playfair Display',serif;
-  font-size:120px;
-  line-height:.8;
-  color:rgba(107,76,59,.18);
-  margin-bottom:8px;
-}
-.book-right-note{
-  max-width:280px;
-  color:#6b4c3b;
-  font-family:'Lora',serif;
-  font-style:italic;
-  font-size:16px;
-  line-height:1.8;
-}
-.book-page-num{
-  margin-top:16px;
-  font-family:'DM Sans',sans-serif;
-  font-size:12px;
-  letter-spacing:.16em;
-  color:#9b8577;
-  text-transform:uppercase;
-}
-.book-nav{
-  margin-top:14px;
-  display:flex;justify-content:space-between;align-items:center;gap:10px;
-}
-.book-btn{
-  border:1px solid rgba(201,149,74,.45);
-  background:rgba(250,246,240,.08);
-  color:var(--cream);
-  padding:10px 18px;
-  border-radius:30px;
-  cursor:pointer;
-  font-family:'DM Sans',sans-serif;
-  font-size:13px;
-  transition:all .25s;
-}
-.book-btn:hover:not(:disabled){
-  background:rgba(201,149,74,.2);
-  border-color:var(--gold);
-}
-.book-btn:disabled{opacity:.35;cursor:not-allowed;}
-.book-center-info{
-  color:rgba(250,246,240,.7);
-  font-family:'DM Sans',sans-serif;
-  font-size:12px;
-  letter-spacing:.12em;
-  text-transform:uppercase;
-}
-.book-close{
-  position:absolute;top:-10px;right:-8px;
-  width:38px;height:38px;border-radius:50%;
-  border:1px solid rgba(201,149,74,.55);
-  background:rgba(42,31,24,.8);
-  color:var(--cream);font-size:18px;
-  cursor:pointer;z-index:2;
-}
-.book-close:hover{background:rgba(201,149,74,.3);}
-.book-flip{
-  position:absolute;
-  top:0;bottom:0;right:0;
-  width:52%;
-  pointer-events:none;
-  transform-origin:left center;
-  transform-style:preserve-3d;
-  opacity:0;
-  border-left:1px solid rgba(107,76,59,.15);
-  background:linear-gradient(90deg,#f7ecd9 0%,#efdec2 45%,#ead6b7 100%);
-  box-shadow:inset 0 0 24px rgba(107,76,59,.12);
-}
-.book-flip::before{
-  content:'';
-  position:absolute;inset:0;
-  background:linear-gradient(90deg,rgba(255,255,255,.45),rgba(255,255,255,0) 35%,rgba(42,31,24,.08) 100%);
-}
-.book-flip.anim{animation:bookPageTurn .85s cubic-bezier(.32,.72,.2,1);}
-@keyframes bookPageTurn{
-  0%{opacity:.2;transform:rotateY(0deg);}
-  45%{opacity:.95;transform:rotateY(-95deg);}
-  100%{opacity:0;transform:rotateY(-180deg);}
-}
-@media(max-width:760px){
-  .book-page{grid-template-columns:1fr;}
-  .book-right{display:none;}
-  .book-left{padding-top:90px;}
-  .book-photo-wrap{width:108px;right:12px;top:10px;transform:rotate(5deg);}
-  .book-photo{height:118px;}
-  .book-photo.empty{height:92px;font-size:10px;}
-  .book-kicker{padding-right:120px;}
 }
 .music-player{
   position:fixed;bottom:24px;right:92px;z-index:700;
@@ -1040,13 +778,10 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:500;o
 
 <!-- FOOTER -->
 <footer class="footer">
-  <div class="footer-action-row">
-    <button class="bday-trigger" id="bday-trigger" onclick="openBirthday()">
+    <div style="margin-bottom:40px;">
+    <button class="bday-trigger" id="bday-trigger" onclick="openBirthday()" style="margin:0 auto;">
       <span class="pulse-dot"></span>
       🎂 Ada yang spesial — 8 Juni
-    </button>
-    <button class="poetry-trigger" id="poetry-trigger" onclick="openPoetryBook()">
-      📖 Buku Puisi Ayah
     </button>
   </div>
   <h2>"Pergilah merantau,<br/>tapi jangan lupa pulang."</h2>
@@ -1145,10 +880,6 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:500;o
     <textarea id="ps-isi" placeholder="Tuliskan puisi lengkapnya di sini..." style="min-height:160px;"></textarea>
     <label>Tanggal (opsional)</label>
     <input id="ps-tgl" type="date"/>
-    <label>Pilih Foto Bingkai (opsional)</label>
-    <select id="ps-photo" style="width:100%;background:var(--warm);border:1.5px solid rgba(201,149,74,.2);border-radius:12px;padding:12px 16px;font-family:'Lora',serif;font-size:15px;color:var(--dark);">
-      <option value="">Tanpa foto</option>
-    </select>
     <div class="modal-actions">
       <button class="btn-ghost" onclick="closeModal('modal-puisi')">Batal</button>
       <button class="btn-gold" id="btn-sp" onclick="submitPuisi()">💾 Simpan Puisi</button>
@@ -1244,42 +975,11 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:500;o
   </div>
 </div>
 
-<div id="poetry-book-overlay">
-  <div class="poetry-book-wrap">
-    <button class="book-close" onclick="closePoetryBook()">×</button>
-    <div class="poetry-book">
-      <div class="book-page">
-        <div class="book-left">
-          <p class="book-kicker">Kumpulan Puisi Ayah</p>
-          <h3 class="book-title" id="book-poem-title">Judul Puisi</h3>
-          <p class="book-meta" id="book-poem-date">Tanpa tanggal</p>
-          <div class="book-poem" id="book-poem-body">Isi puisi akan tampil di sini.</div>
-          <div class="book-photo-wrap" id="book-photo-wrap">
-            <div class="book-photo empty" id="book-photo-empty">Tanpa foto halaman ini</div>
-            <img class="book-photo" id="book-photo" src="" alt="Foto puisi" style="display:none;" />
-          </div>
-        </div>
-        <div class="book-right">
-          <div class="book-quote-mark">“</div>
-          <p class="book-right-note">Setiap bait adalah jejak rindu. Setiap kata adalah cara ayah tetap hadir.</p>
-          <p class="book-page-num" id="book-page-num">HALAMAN 1</p>
-        </div>
-      </div>
-      <div class="book-flip" id="book-flip"></div>
-    </div>
-    <div class="book-nav">
-      <button class="book-btn" id="book-prev" onclick="flipPoetry(-1)">← Halaman Sebelumnya</button>
-      <span class="book-center-info" id="book-center-info">1 / 1</span>
-      <button class="book-btn" id="book-next" onclick="flipPoetry(1)">Halaman Berikutnya →</button>
-    </div>
-  </div>
-</div>
-
 <div class="toast" id="toast"></div>
 
 <script>
 // ══ GANTI INI dengan URL deploy Apps Script kamu ══
-const API_URL = "https://script.google.com/macros/s/AKfycbyQyaG2elSu2i5B0aTn6Cj5G4Wt67QLBchyeBpbnat8UUdFBFMjAz6AHnbd8r9ZNsgU/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbxCZtDTnYbYPBgRWuMxcuzkJmFPycpXuFisk4Hkm6p3D27j3AAoyYbrIgX4qWGYQw68/exec";
 // const API_URL = "https://script.google.com/macros/s/XXXXX/exec";
 
 // ══ URL MUSIK ══
@@ -1296,7 +996,6 @@ const MUSIC_ARTIST = "Iwan Fals";
 let photos=[], quotes=[], tlData=[], puisi=[];
 let lbIdx=0, qIdx=0, qTimer=null;
 let fabOpen=false, fotoTab="url";
-let bookIdx=0, bookBusy=false;
 
 // ── AUDIO SETUP ──────────────────────────────────
 let audio = null;
@@ -1409,21 +1108,13 @@ async function loadAll(){
   if(cache){ try{ const c=JSON.parse(cache); photos=c.p||[]; quotes=c.q||[]; tlData=c.t||[]; puisi=c.u||[]; renderAll(); }catch(e){} }
   try{
     const d = await jsonpGet(API_URL+"?action=all");
-    photos=d.photos||[]; quotes=d.quotes||[]; tlData=d.timeline||[]; puisi=(d.puisi||[]).map(normalizePuisi);
+    photos=d.photos||[]; quotes=d.quotes||[]; tlData=d.timeline||[]; puisi=d.puisi||[];
     localStorage.setItem("kk_v3",JSON.stringify({p:photos,q:quotes,t:tlData,u:puisi}));
     renderAll(); setStatus("","");
   } catch(err){
     setStatus("error","⚠️ "+err.message+" — pastikan deploy sebagai 'Anyone can access'");
     useDefaults();
   }
-}
-
-function normalizePuisi(p){
-  if(!p) return {};
-  const out = {...p};
-  out.photo = out.photo || out.foto || out.photoUrl || out.fotoUrl || out.gambar || out.image || out.imageUrl || "";
-  if(out.photo && /drive\.google\.com/.test(out.photo)) out.photo = toDriveImg(out.photo);
-  return out;
 }
 
 function useDefaults(){
@@ -1434,9 +1125,8 @@ function useDefaults(){
     {text:"Yang terbaik yang bisa kau berikan pada orangtuamu adalah menjadi orang yang mereka banggakan.",author:"Anonim"},
   ];
   if(!puisi.length) puisi=[
-    {judul:"Pelita Hati",isi:"Di malam yang gelap gulita\nHatiku mencari sinarmu\nAyah, kau pelita hatiku\nMenerangi jalan yang kelam",tgl:"",photo:""},
+    {judul:"Pelita Hati",isi:"Di malam yang gelap gulita\nHatiku mencari sinarmu\nAyah, kau pelita hatiku\nMenerangi jalan yang kelam",tgl:""},
   ];
-  puisi = puisi.map(normalizePuisi);
   if(!tlData.length) tlData=[
     {year:"~2000-an",title:"Keluarga Kecil yang Lengkap",desc:"Masa ketika semua masih bisa berkumpul. Senyum yang belum tahu waktu akan mengubah segalanya.",icon:"🏠"},
     {year:"17 Maret 2017",title:"Ayah Berpulang",desc:"Kepergian yang meninggalkan keheningan. Ibu memilih diam dan tersenyum, menyimpan beratnya sendiri agar anak-anaknya tetap berdiri.",icon:"🕯️"},
@@ -1477,36 +1167,22 @@ async function submitPuisi(){
   const judul=document.getElementById("ps-judul").value.trim();
   const isi=document.getElementById("ps-isi").value.trim();
   const tgl=document.getElementById("ps-tgl").value;
-  const photoUrl=document.getElementById("ps-photo").value.trim();
-  const photoLabel = document.getElementById("ps-photo").selectedOptions[0]?.textContent || "";
   if(!isi){ toast("Tulis puisi ayah dulu 📜"); return; }
   const btn=document.getElementById("btn-sp");
   btn.disabled=true; btn.textContent="Menyimpan...";
   try{
-    await iPost({
-      action:"addPuisi",
-      data:{
-        judul,isi,tgl,
-        photo:photoUrl,
-        photoUrl:photoUrl,
-        foto:photoUrl,
-        imageUrl:photoUrl,
-        photoLabel:photoLabel
-      }
-    });
+    await iPost({action:"addPuisi",data:{judul,isi,tgl}});
     toast("Puisi ayah tersimpan selamanya 💝");
     closeModal("modal-puisi");
-    ["ps-judul","ps-isi","ps-tgl","ps-photo"].forEach(id=>document.getElementById(id).value="");
-    puisi.push(normalizePuisi({judul,isi,tgl,photo:photoUrl,photoLabel:photoLabel}));
-    bookIdx=puisi.length-1;
-    syncPoetryBook();
+    ["ps-judul","ps-isi","ps-tgl"].forEach(id=>document.getElementById(id).value="");
+    puisi.push({judul,isi,tgl}); puisiIdx=puisi.length-1; renderPuisi();
     setTimeout(loadAll,3000);
   }catch(e){ toast("Gagal: "+e.message); }
   btn.disabled=false; btn.textContent="💾 Simpan Puisi";
 }
 
 // ── RENDER ALL ───────────────────────────────────
-function renderAll(){ renderGallery(); renderQuotes(); renderTl(); syncPoetryBook(); fillPuisiPhotoOptions(); }
+function renderAll(){ renderGallery(); renderQuotes(); renderPuisi(); renderTl(); }
 
 // ── DRIVE URL CONVERTER ──────────────────────────
 // Google Drive share link → embeddable thumbnail URL
@@ -1821,13 +1497,6 @@ document.addEventListener("keydown", e=>{
   if (e.key === "Backspace") pinDel();
 });
 
-document.addEventListener("keydown",e=>{
-  if(!document.getElementById("poetry-book-overlay").classList.contains("open")) return;
-  if(e.key==="Escape") closePoetryBook();
-  if(e.key==="ArrowRight") flipPoetry(1);
-  if(e.key==="ArrowLeft") flipPoetry(-1);
-});
-
 // ── Override submit functions — PIN sudah dicek saat buka modal
 // (wrap dipindah ke tombol FAB / tombol tambah, bukan di submit)
 
@@ -1893,93 +1562,6 @@ function closeBirthday(){
   document.getElementById("birthday-overlay").classList.remove("open");
   document.body.style.overflow = "";
   stopConfetti();
-}
-
-// ═══════════════════════════════════════════════════
-//  POETRY BOOK OVERLAY
-// ═══════════════════════════════════════════════════
-function syncPoetryBook(){
-  if(bookIdx >= puisi.length) bookIdx = Math.max(0, puisi.length-1);
-  if(document.getElementById("poetry-book-overlay").classList.contains("open")){
-    renderPoetryBook();
-  }
-}
-
-function openPoetryBook(){
-  if(!puisi.length){
-    toast("Belum ada puisi ayah yang tersimpan 📜");
-    return;
-  }
-  renderPoetryBook();
-  document.getElementById("poetry-book-overlay").classList.add("open");
-  document.body.style.overflow = "hidden";
-}
-
-function closePoetryBook(){
-  document.getElementById("poetry-book-overlay").classList.remove("open");
-  document.body.style.overflow = "";
-}
-
-function renderPoetryBook(){
-  const p = puisi[bookIdx] || {};
-  document.getElementById("book-poem-title").textContent = p.judul || "Tanpa Judul";
-  document.getElementById("book-poem-date").textContent = p.tgl ? p.tgl : "Tanpa tanggal";
-  document.getElementById("book-poem-body").textContent = p.isi || p.text || "Puisi belum tersedia.";
-  document.getElementById("book-page-num").textContent = "HALAMAN " + (bookIdx + 1);
-  document.getElementById("book-center-info").textContent = (bookIdx + 1) + " / " + puisi.length;
-  document.getElementById("book-prev").disabled = bookIdx === 0;
-  document.getElementById("book-next").disabled = bookIdx === puisi.length - 1;
-  updateBookPhotoView();
-}
-
-function flipPoetry(dir){
-  if(bookBusy || !puisi.length) return;
-  const target = bookIdx + dir;
-  if(target < 0 || target >= puisi.length) return;
-  bookBusy = true;
-  const fx = document.getElementById("book-flip");
-  fx.classList.remove("anim");
-  void fx.offsetWidth;
-  fx.classList.add("anim");
-  setTimeout(()=>{
-    bookIdx = target;
-    renderPoetryBook();
-  },260);
-  setTimeout(()=>{
-    fx.classList.remove("anim");
-    bookBusy = false;
-  },720);
-}
-
-function fillPuisiPhotoOptions(){
-  const sel = document.getElementById("ps-photo");
-  if(!sel) return;
-  const opts = [`<option value="">Tanpa foto</option>`];
-  (photos||[]).forEach((ph,i)=>{
-    const src = toDriveImg(ph.url);
-    const label = (ph.caption && ph.caption.trim()) ? ph.caption.trim() : `Foto ${i+1}`;
-    const safeSrc = String(src).replace(/"/g,'"');
-    const safeLabel = String(label).replace(/</g,'<').replace(/>/g,'>');
-    opts.push(`<option value="${safeSrc}">${safeLabel}</option>`);
-  });
-  sel.innerHTML = opts.join("");
-}
-
-function updateBookPhotoView(){
-  const p = puisi[bookIdx] || {};
-  const img = document.getElementById("book-photo");
-  const empty = document.getElementById("book-photo-empty");
-  const finalPhoto = p.photo || p.foto || p.photoUrl || p.fotoUrl || p.image || p.imageUrl || "";
-  if(!finalPhoto){
-    img.style.display = "none";
-    img.src = "";
-    empty.style.display = "flex";
-    return;
-  }
-  img.src = finalPhoto;
-  img.alt = p.judul ? "Foto puisi: "+p.judul : "Foto puisi";
-  img.style.display = "block";
-  empty.style.display = "none";
 }
 
 // ── CONFETTI ─────────────────────────────────────
