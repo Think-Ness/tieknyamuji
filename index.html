@@ -2034,11 +2034,27 @@ function openPoetryBook(){
   renderPoetryBook();
   document.getElementById("poetry-book-overlay").classList.add("open");
   document.body.style.overflow = "hidden";
+
+  // sembunyikan music player agar tidak menghalangi navigasi buku (terutama mobile)
+  const mp = document.getElementById("music-player");
+  if(mp){
+    mp.dataset.wasVisible = mp.classList.contains("visible") ? "1" : "0";
+    mp.classList.remove("visible");
+    mp.style.pointerEvents = "none";
+  }
 }
 
 function closePoetryBook(){
   document.getElementById("poetry-book-overlay").classList.remove("open");
   document.body.style.overflow = "";
+
+  // kembalikan music player jika sebelumnya memang visible
+  const mp = document.getElementById("music-player");
+  if(mp){
+    const shouldShow = mp.dataset.wasVisible === "1";
+    if(shouldShow) mp.classList.add("visible");
+    mp.style.pointerEvents = "";
+  }
 }
 
 function renderPoetryBook(){
